@@ -13,12 +13,12 @@
     </appender>
 
     <appender name="RfAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/TicketManager-logger.log</file>
+        <file>${LOGS}/mini_project-logger.log</file>
         <encoder>
             <pattern>%d %p %C{1.} [%t] %m%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOGS}/archived/TicketManager-logger-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOGS}/archived/mini_project-logger-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
