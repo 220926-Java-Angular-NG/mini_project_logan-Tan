@@ -1,3 +1,4 @@
 .vs
 .idea
 .properties
+BackEnd/target/classes/dbConfig.properties

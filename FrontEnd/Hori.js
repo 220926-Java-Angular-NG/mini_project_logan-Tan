@@ -2,7 +2,8 @@ let test = document.getElementById("output");
 let horo = document.getElementById("horoscope");
 let comf = document.getElementById("comf");
 var sign = "pisces";
-document.getElementById("get").addEventListener('click',async()=>{
+document.getElementById("get").addEventListener('click',async(event)=>{
+    event.preventDefault();
     try{
         const raw_response=await
         fetch("http://localhost:8080/test")
@@ -17,20 +18,23 @@ document.getElementById("get").addEventListener('click',async()=>{
 
 
 });
-document.getElementById("post").addEventListener('click',async()=>{
+document.getElementById("post").addEventListener('click',async(event)=>{
+    event.preventDefault();
     try{
         const raw_response=await
         fetch("http://localhost:8080/register", {
-            method: "POST", 
+            method: "POST",
+            headers:{
+                "Content-type": "application/json; charset=UTF-8"
+            },
             body: JSON.stringify({
                 firstname: "Logan",
                 lastname: "Tan",
                 username: "SD",
                 passcode: "password",
+                email:"lt042@m.m",
                 sign: "pisces"
-            }),headers:{
-                "Content-type": "application/json; charset=UTF-8"
-            }
+            })
         })
         if(!raw_response.ok){
             alert(`error Status: ${raw_response.status}`);
@@ -43,7 +47,8 @@ document.getElementById("post").addEventListener('click',async()=>{
 
 
 });
-document.getElementById("hori").addEventListener('click',async()=>{
+document.getElementById("hori").addEventListener('click',async(event)=>{
+    event.preventDefault();
     if(sign){
         try{
             const raw_response=await

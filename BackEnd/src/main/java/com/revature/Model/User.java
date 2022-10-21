@@ -5,12 +5,11 @@ public class User {
     String lastname;
     String username;
     String passcode;
+    String email;
     String sign;
     String mood;
 
     public User(){}; // Empty constructor for Javalin
-
-
 
 
 
@@ -30,7 +29,9 @@ public class User {
     public String getPasscode() {
         return passcode;
     }
-
+    public String getEmail() {
+        return email;
+    }
     public String getSign() {
         return sign;
     }
@@ -54,7 +55,9 @@ public class User {
     public void setPasscode(String passcode) {
         this.passcode = passcode;
     }
-
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public void setSign(String sign) {
         this.sign = sign;
     }
