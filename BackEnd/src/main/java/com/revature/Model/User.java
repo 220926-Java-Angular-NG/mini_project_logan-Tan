@@ -1,5 +1,9 @@
 package com.revature.Model;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
+
 public class User {
     String firstname;
     String lastname;
@@ -10,7 +14,6 @@ public class User {
     String mood;
 
     public User(){}; // Empty constructor for Javalin
-
 
 
     // Getter and Setter block

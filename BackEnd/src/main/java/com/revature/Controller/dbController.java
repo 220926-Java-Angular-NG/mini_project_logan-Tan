@@ -1,5 +1,6 @@
 package com.revature.Controller;
 
+import com.revature.Model.User;
 import com.revature.Utils.ConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,5 +54,61 @@ public class dbController {
             return true; // The Username doesn't already exist adding to DB
         }
         return false; // The name exists was not added returing now
+    }
+
+    public void adjustmood(String username, String password, String mood) throws SQLException {
+        Query = "Select * from users where username = ? and passcode = ?;";
+        act = connection.prepareStatement(Query);
+        act.setString(1,username);
+        act.setString(2,password);
+        try {
+            res = act.executeQuery();
+            System.out.println("search");
+        } catch (SQLException e){
+            LOGGER.error(e.getMessage());
+        }
+        Query = "alter users set mood = ? where username = ?";
+        act = connection.prepareStatement(Query);
+        act.setString(1,mood);
+        act.setString(2,username);
+        act.execute();
+    }
+
+    public User getmood(String username, String passcode) throws SQLException {
+        Query = "Select * from users where username = ? and passcode = ?;";
+        act = connection.prepareStatement(Query);
+        act.setString(1,username);
+        act.setString(2,passcode);
+        try {
+            res = act.executeQuery();
+            System.out.println("search");
+        } catch (SQLException e){
+            LOGGER.error(e.getMessage());
+        }
+        Query = "get mood from users where username = ?";
+        act = connection.prepareStatement(Query);
+        act.setString(1,username);
+        res = act.executeQuery();
+        if(res.next()){
+           User output = new User();
+           output.setMood(res.getNString("mood"));
+        }
+        return null;
+    }
+
+    public boolean login(String username, String passcode){
+        try{
+            Query = "Select * from users where username = ? and passcode = ?";
+            act = connection.prepareStatement(Query);
+            act.setString(1,username);
+            act.setString(2,passcode);
+            res = act.executeQuery();
+            if(res.next()){
+                return true;
+            }
+        }catch (SQLException e){
+            LOGGER.error((e.getMessage()));
+        }
+        return false;
     }
 }
