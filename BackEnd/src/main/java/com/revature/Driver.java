@@ -66,7 +66,7 @@ public class Driver {
             }
             context.json(out);
         });
-        app.patch("/adjustmood", context -> {
+        app.post("/adjustmood", context -> {
             User input = context.bodyAsClass(User.class);
             db.adjustmood(input.getId(),input.getMood());
             context.json(input);

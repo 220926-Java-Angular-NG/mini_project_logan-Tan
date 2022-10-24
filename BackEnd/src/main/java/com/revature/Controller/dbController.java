@@ -62,11 +62,10 @@ public class dbController {
         act.setInt(1,id);
         try {
             res = act.executeQuery();
-            System.out.println("search");
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
         }
-        Query = "alter users set mood = ? where id = ?";
+        Query = "update users set mood = ? where id = ?";
         act = connection.prepareStatement(Query);
         act.setString(1,mood);
         act.setInt(2,id);

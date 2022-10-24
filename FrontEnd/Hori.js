@@ -55,20 +55,3 @@ document.getElementById("Register").addEventListener('click',async(event)=>{
     location.href = 'http://127.0.0.1:5500/FrontEnd/Register.html';
 
 });
-document.getElementById("hori").addEventListener('click',async(event)=>{
-    event.preventDefault();
-    if(sign){
-        try{
-            const raw_response=await
-            fetch(`http://sandipbgt.com/theastrologer/api/horoscope/${this.sign}/today`)
-            if(!raw_response.ok){
-                alert(`error Status: ${raw_response.status}`);
-            }
-            const json_data = await raw_response.json();
-            horo.innerHTML = `Name: ${json_data.horoscope}`;
-        }catch(error){
-            console.log(error);
-        }
-    }
-
-});
