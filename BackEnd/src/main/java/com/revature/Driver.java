@@ -15,9 +15,6 @@ public class Driver {
         dbController db = new dbController(); // get a database controller running.
         Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).start(8080); // start up a Javalin instance
         User Test = new User();
-        Test.setFirstname("Logan");
-        Test.setLastname("Tan");
-        app.get("/test",context -> context.json(Test));
         List<User> users = new ArrayList<>();
 
         app.post("/register",context -> {
