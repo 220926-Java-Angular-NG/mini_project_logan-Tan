@@ -12,6 +12,7 @@ public class User {
     String email;
     String sign;
     String mood;
+    int id;
 
     public User(){}; // Empty constructor for Javalin
 
@@ -64,8 +65,10 @@ public class User {
     public void setSign(String sign) {
         this.sign = sign;
     }
-
     public void setMood(String mood) {
         this.mood = mood;
     }
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
+
 }

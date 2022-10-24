@@ -19,11 +19,12 @@ public class dbController {
             connection = ConnectionManager.getConn();
             act = connection.prepareStatement("create table if not exists users(FirstName VARCHAR not NULL,"+
                     "LastName VARCHAR not NULL,"+
-                    "UserName VARCHAR not NULL PRIMARY KEY,"+
+                    "UserName VARCHAR not NULL unique PRIMARY KEY,"+
                     "Passcode VARCHAR not NULL,"+
                     "Email VARCHAR not NULL,"+
                     "Sign VARCHAR not NULL,"+
-                    "Mood VARCHAR)");
+                    "Mood VARCHAR,"+
+                    "id serial)");
             act.execute();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -36,7 +37,6 @@ public class dbController {
         act.setString(1,userName);
         try {
             res = act.executeQuery();
-            System.out.println("search");
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
             return false;
@@ -56,47 +56,41 @@ public class dbController {
         return false; // The name exists was not added returing now
     }
 
-    public void adjustmood(String username, String password, String mood) throws SQLException {
-        Query = "Select * from users where username = ? and passcode = ?;";
+    public void adjustmood(int id, String mood) throws SQLException {
+        Query = "Select * from users where id = ?;";
         act = connection.prepareStatement(Query);
-        act.setString(1,username);
-        act.setString(2,password);
+        act.setInt(1,id);
         try {
             res = act.executeQuery();
             System.out.println("search");
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
         }
-        Query = "alter users set mood = ? where username = ?";
+        Query = "alter users set mood = ? where id = ?";
         act = connection.prepareStatement(Query);
         act.setString(1,mood);
-        act.setString(2,username);
+        act.setInt(2,id);
         act.execute();
     }
 
-    public User getmood(String username, String passcode) throws SQLException {
-        Query = "Select * from users where username = ? and passcode = ?;";
-        act = connection.prepareStatement(Query);
-        act.setString(1,username);
-        act.setString(2,passcode);
+    public User getmood(int id){
+        User out = new User();
         try {
+            Query = "Select mood from users where id = ?;";
+            act = connection.prepareStatement(Query);
+            act.setInt(1,id);
             res = act.executeQuery();
-            System.out.println("search");
+            if(res.next()) {
+                out.setMood(res.getString("mood"));
+                return out;
+            }
         } catch (SQLException e){
             LOGGER.error(e.getMessage());
         }
-        Query = "get mood from users where username = ?";
-        act = connection.prepareStatement(Query);
-        act.setString(1,username);
-        res = act.executeQuery();
-        if(res.next()){
-           User output = new User();
-           output.setMood(res.getNString("mood"));
-        }
-        return null;
+        return out;
     }
 
-    public boolean login(String username, String passcode){
+    public User login(String username, String passcode){
         try{
             Query = "Select * from users where username = ? and passcode = ?";
             act = connection.prepareStatement(Query);
@@ -104,11 +98,18 @@ public class dbController {
             act.setString(2,passcode);
             res = act.executeQuery();
             if(res.next()){
-                return true;
+                User out = new User();
+                out.setFirstname(res.getString("firstname"));
+                out.setLastname(res.getString("lastname"));
+                out.setUsername(res.getString("username"));
+                out.setPasscode(res.getString("passcode"));
+                out.setSign(res.getString("sign"));
+                out.setId(res.getInt("id"));
+                return out;
             }
         }catch (SQLException e){
             LOGGER.error((e.getMessage()));
         }
-        return false;
+        return null;
     }
 }
