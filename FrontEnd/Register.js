@@ -60,7 +60,7 @@ function getsign(event){
     var day = date.getDate()+1;
     switch(month){
         case 1: // January
-            if(day <= 19){
+            if(day < 20){
                 signd.value = 'capricorn';
             }else{
                 signd.value = 'aquarius'
