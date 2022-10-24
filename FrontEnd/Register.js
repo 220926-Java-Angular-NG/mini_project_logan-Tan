@@ -35,7 +35,7 @@ document.getElementById("post").addEventListener('click',async(event)=>{
                 alert(`error Status: ${raw_response.status}`);
             }
             const json_data = await raw_response.json();
-            if(json_data.id != 0){
+            if(json_data.sign = document.getElementById("sign").value){
                 window.history.pushState(null,null,'http://127.0.0.1:5500/FrontEnd/Hori.html');
                 location.href = 'http://127.0.0.1:5500/FrontEnd/Hori.html';     
             }else{
